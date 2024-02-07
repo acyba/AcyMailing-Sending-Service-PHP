@@ -1,0 +1,18 @@
+{
+    "name": "acymailing/sending-service",
+    "authors": [
+        {
+            "name": "Rémi Leclercq",
+            "email": "remi.leclercq@jetpulp.fr"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.8",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "AcyMailer\\": "src/"
+        }
+    }
+}
