@@ -7,14 +7,14 @@ require_once __DIR__.'/../vendor/autoload.php';
 use AcyMailer\Routes\Domain\Add;
 use AcyMailer\Routes\Domain\Delete;
 use AcyMailer\Routes\Domain\Update;
-use AcyMailer\Routes\GetCredits;
+use AcyMailer\Routes\GetLicenseInfo;
 use AcyMailer\Routes\Send;
 use AcyMailer\Services\ApiService;
 
 class SendingService
 {
     use Send;
-    use GetCredits;
+    use GetLicenseInfo;
     use Add;
     use Delete;
     use Update;

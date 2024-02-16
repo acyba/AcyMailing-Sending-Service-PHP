@@ -4,12 +4,12 @@ namespace AcyMailer\Routes;
 
 use Exception;
 
-trait GetCredits
+trait GetLicenseInfo
 {
     /**
      * @throws Exception
      */
-    public function getCredits(): array
+    public function getLicenseInfo(): array
     {
         return $this->apiService->request('/api/get_credits');
     }
