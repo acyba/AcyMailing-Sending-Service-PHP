@@ -20,6 +20,10 @@ In the composer.json file of the local project, add the following line in the re
         }
     ]
     //...
+    "require": {
+        "acymailing/sending-service": "@dev"
+    }
+    //...
 }
 ```
 
