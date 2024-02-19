@@ -130,11 +130,6 @@ trait Send
             $domains[] = explode('@', $this->options[$emailDomainsOption])[1];
         }
 
-        // We only keep the domain name without the subdomain
-        $domains = array_map(function ($domain) {
-            return implode('.', array_slice(explode('.', $domain), -2));
-        }, $domains);
-
         return array_unique($domains);
     }
 }
