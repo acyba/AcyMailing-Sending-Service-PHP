@@ -1,12 +1,14 @@
 {
     "name": "acymailing/sending-service",
+    "description": "AcyMailing Sending Service for PHP",
     "authors": [
         {
             "name": "Rémi Leclercq",
-            "email": "remi.leclercq@jetpulp.fr"
+            "email": "john@acyba.com"
         }
     ],
     "require": {
+        "php": ">=8.0",
         "guzzlehttp/guzzle": "^7.8",
         "phpmailer/phpmailer": "^6.9"
     },

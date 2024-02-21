@@ -7,9 +7,9 @@ use Exception;
 trait Update
 {
     /**
-     * @param string $domain
-     * @param bool   $isLimited
-     * @param int    $creditsAllowed
+     * @param int  $domainId
+     * @param bool $isLimited
+     * @param int  $creditsAllowed
      *
      * @return void
      * @throws Exception
