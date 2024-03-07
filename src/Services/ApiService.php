@@ -37,7 +37,7 @@ class ApiService
     /**
      * @throws Exception
      */
-    public function request(string $uri, array $options = []): array
+    public function request(string $uri, array $options = []): array|null
     {
         $method = $options['method'] ?? 'GET';
 

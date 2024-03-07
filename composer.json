@@ -1,6 +1,7 @@
 {
     "name": "acymailing/sending-service",
     "description": "AcyMailing Sending Service for PHP",
+    "license": "MIT",
     "authors": [
         {
             "name": "Rémi Leclercq",
