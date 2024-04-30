@@ -2,8 +2,6 @@
 
 namespace AcyMailer;
 
-require_once __DIR__.'/../vendor/autoload.php';
-
 use AcyMailer\Routes\Domain\Add;
 use AcyMailer\Routes\Domain\Delete;
 use AcyMailer\Routes\Domain\Update;
