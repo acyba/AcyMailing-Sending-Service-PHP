@@ -14,18 +14,56 @@ trait Send
      */
     public function send(array $options = []): array
     {
+        return $this->apiService->request('/api/send', [
+            'method' => 'POST',
+            'body' => [
+                'email' => $this->getMime($options),
+                'domainsUsed' => $this->getDomainsUsed(),
+            ],
+        ]);
+    }
+
+    /**
+     * @throws \PHPMailer\PHPMailer\Exception
+     * @throws Exception
+     */
+    public function getMime(array $options = []): string
+    {
         $this->options = $options;
         $this->checkRequiredOptions();
         $this->checkOptionsTypes();
         $this->addDefaultOption();
 
-        return $this->apiService->request('/api/send', [
-            'method' => 'POST',
-            'body' => [
-                'email' => $this->getMime(),
-                'domainsUsed' => $this->getDomainsUsed(),
-            ],
-        ]);
+        $mail = new PHPMailer(true);
+
+        //Recipients
+        $mail->setFrom($this->options['from_email'], $this->options['from_name']);
+        $mail->addAddress($this->options['to']);
+        $mail->addReplyTo($this->options['reply_to_email'], $this->options['reply_to_name']);
+
+        if (isset($this->options['cc'])) {
+            foreach ($this->options['cc'] as $cc) {
+                $mail->addCC($cc);
+            }
+        }
+
+        if (isset($this->options['attachments'])) {
+            foreach ($this->options['attachments'] as $attachment) {
+                $mail->addAttachment($attachment);
+            }
+        }
+
+        $mail->isHTML();
+        $mail->Subject = $this->options['subject'];
+        $mail->Body = $this->options['body'];
+        $mail->AltBody = $this->options['alt_body'];
+        $mail->Sender = $this->options['bounce_email'];
+
+        if (!$mail->preSend()) {
+            return '';
+        }
+
+        return $mail->getSentMIMEMessage();
     }
 
     /**
@@ -84,41 +122,6 @@ trait Send
         if (!isset($this->options['alt_body'])) {
             $this->options['alt_body'] = strip_tags($this->options['body']);
         }
-    }
-
-    /**
-     * @throws \PHPMailer\PHPMailer\Exception
-     */
-    private function getMime(): string
-    {
-        $mail = new PHPMailer(true);
-
-        //Recipients
-        $mail->setFrom($this->options['from_email'], $this->options['from_name']);
-        $mail->addAddress($this->options['to']);
-        $mail->addReplyTo($this->options['reply_to_email'], $this->options['reply_to_name']);
-
-        if (isset($this->options['cc'])) {
-            foreach ($this->options['cc'] as $cc) {
-                $mail->addCC($cc);
-            }
-        }
-
-        if (isset($this->options['attachments'])) {
-            foreach ($this->options['attachments'] as $attachment) {
-                $mail->addAttachment($attachment);
-            }
-        }
-
-        $mail->isHTML();
-        $mail->Subject = $this->options['subject'];
-        $mail->Body = $this->options['body'];
-        $mail->AltBody = $this->options['alt_body'];
-        $mail->Sender = $this->options['bounce_email'];
-
-        $mail->send();
-
-        return $mail->getSentMIMEMessage();
     }
 
     private function getDomainsUsed(): array
